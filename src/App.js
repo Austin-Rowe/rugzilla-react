@@ -15,7 +15,8 @@ import removeFromCart from './redux-functions/cart/removeFromCart';
 import addFilterParam from './redux-functions/product-filter/addFilterParam';
 import removeFilterParam from './redux-functions/product-filter/removeFilterParam';
 import modifyAppliedFilters from './redux-functions/product-filter/modifyAppliedFilters';
-import sortByPrice from './redux-functions/product-sort/sort-by-price';
+import sortByPrice from './redux-functions/product-sort/sortByPrice';
+import modifyPriceSort from './redux-functions/product-sort/modifySortByPriceObj';
 
 function saveToLocalStorage(state){
   try{
@@ -44,15 +45,19 @@ const initialState = {
   data,
   appliedFilters: [],
   filteredData: data,
-  visibleProducts: 1
+  visibleProducts: 1,
+  sortByPrice: {
+    lowToHigh: false,
+    highToLow: false
+  }
 };
 
 function reducer(state = initialState, action){
   switch(action.type){
     case "VIEWMORE": return {...state, visibleProducts: state.visibleProducts + 1 };
     case "ADDFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: addFilterParam(state.filteredData, action) };
-    case "REMOVEFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: removeFilterParam(state.data, state.appliedFilters) };
-    case "SORTBYPRICE": return {...state, visibleProducts: 1, filteredData: sortByPrice(state.filteredData, action) };
+    case "REMOVEFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: removeFilterParam(state.data, state.appliedFilters, state.sortByPrice) };
+    case "SORTBYPRICE": return {...state, visibleProducts: 1, filteredData: sortByPrice(state.filteredData, action), sortByPrice: modifyPriceSort(state.sortByPrice, action) };
     case "CLEARFILTERS": return {...state, visibleProducts: 1, appliedFilters: [], filteredData: state.data};
     case "INCREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };
     case "DECREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };

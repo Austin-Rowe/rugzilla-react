@@ -108,40 +108,55 @@ class Filter extends Component {
     }
 
     sortPriceLowHigh(){
-        const sortAction = {
-            type: "SORTBYPRICE",
-            order: 'low-to-high'
-        }
         if(!this.state.lowHighChecked){
             this.setState({
                 lowHighChecked: true,
                 highLowChecked: false
             })
+            const sortAction = {
+                type: "SORTBYPRICE",
+                order: 'lowToHigh',
+                selected: true
+            }
             this.props.dispatch(sortAction);
         } else if(this.state.lowHighChecked){
             this.setState({
                 lowHighChecked: false,
                 highLowChecked: false
             })
+            const sortAction = {
+                type: "SORTBYPRICE",
+                order: 'lowToHigh',
+                selected: false
+            }
+            this.props.dispatch(sortAction);
         }
     }
 
     sortPriceHighLow(){
-        const sortAction = {
-            type: "SORTBYPRICE",
-            order: 'high-to-low'
-        }
+        
         if(!this.state.highLowChecked){
             this.setState({
                 lowHighChecked: false,
                 highLowChecked: true
             })
+            const sortAction = {
+                type: "SORTBYPRICE",
+                order: 'highToLow',
+                selected: true
+            }
             this.props.dispatch(sortAction);
         } else if(this.state.highLowChecked){
             this.setState({
                 lowHighChecked: false,
                 highLowChecked: false
             })
+            const sortAction = {
+                type: "SORTBYPRICE",
+                order: 'highToLow',
+                selected: false
+            }
+            this.props.dispatch(sortAction);
         }
     }
 

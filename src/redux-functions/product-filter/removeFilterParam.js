@@ -1,4 +1,4 @@
-const removeFilterParam = (data, filters) => {
+const removeFilterParam = (data, filters, sortByPrice) => {
     const paramsCreator = actions => {
         let types = {};
         actions.forEach(action => {
@@ -55,6 +55,13 @@ const removeFilterParam = (data, filters) => {
         }
         
     })
+    if(sortByPrice.lowToHigh || sortByPrice.highToLow){
+        if(sortByPrice.lowToHigh){
+            filteredData.sort((a,b) => a.price - b.price);
+        } else if(sortByPrice.highToLow){
+            filteredData.sort((a,b) => b.price - a.price);
+        }
+    }
     return filteredData;
 }
   
