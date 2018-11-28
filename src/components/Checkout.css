@@ -1,0 +1,14 @@
+#checkout {
+    width: 80vw;
+    max-width: 400px;
+    margin: 10px auto 20px auto;
+}
+
+#submit-button {
+    width: 100%;
+}
+
+.input-field {
+    margin-top: 10px;
+}
+

@@ -1,0 +1,77 @@
+[
+    {
+        "key": "841847088345", 
+        "images": ["http://images.repzio.com/productimages/175/ABACAC-01BERU_lg.jpg", "http://images.repzio.com/productimages/175/ABACAC-01BERU_1.jpg", "https://placeimg.com/1000/480/any"],
+        "manufacturer": "Loloi",
+        "collection": "Abacus",
+        "sizeCategory": "8x11",
+        "sizeTrue": "7'10\"x10'10\"",
+        "pileThickness": ".75in",
+        "construction": "Machine Woven",
+        "material": "Polypropylene/Polyester",
+        "description": "The Abbot Collection is a surprising and modern twist with variations of high pile shag and low pile, woven construction. Each design is 100% wool and hand-woven by skilled artisans in India. Crafted by Loloi for ED Ellen DeGeneres.",
+        "colorName": "Grey/Multi",
+        "color": ["red", "yellow", "blue", "ivory", "purple"],
+        "imperfections": [],
+        "perfect": true,
+        "price": 1
+    },
+    {
+        "key": "885369303357", 
+        "images": ["http://images.repzio.com/productimages/175/AKINAK-05IVBE_lg.jpg", "http://images.repzio.com/productimages/175/AKINAK-05IVBE_1.jpg", "https://placeimg.com/1000/480/any"],
+        "imagesTN": ["https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any"],
+        "manufacturer": "Loloi",
+        "collection": "Akina",
+        "sizeCategory": "5x8",
+        "sizeTrue": "7'10\"x10'10\"",
+        "pileThickness": ".75in",
+        "construction": "Hand-Tufted",
+        "material": "Wool",
+        "description": "The Abbot Collection is a surprising and modern twist with variations of high pile shag and low pile, woven construction. Each design is 100% wool and hand-woven by skilled artisans in India. Crafted by Loloi for ED Ellen DeGeneres.",
+        "colorName": "Grey/Multi",
+        "color": ["red", "yellow", "blue", "ivory", "purple"],
+        "imperfections": [],
+        "perfect": true,
+        "price": 1259
+    },
+    {
+        "key": "841847027573", 
+        "images": ["http://images.repzio.com/productimages/175/BOYDBO-01BEBL_lg.jpg", "http://images.repzio.com/productimages/175/BOYDBO-01BEBL_1.jpg", "https://placeimg.com/1000/480/any"],
+        "imagesTN": ["https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any"],
+        "manufacturer": "Loloi",
+        "collection": "Boyd",
+        "sizeCategory": "4x6",
+        "sizeTrue": "7'10\"x10'10\"",
+        "pileThickness": ".25in",
+        "construction": "Hand Woven",
+        "material": "Wool/Polyester",
+        "description": "Hand tufted in India, the Boyd Collection is a luxuriously soft collection with sophisticated colors that suit upscale contemporary and transitional room settings. Crafted with wool and touches of viscose, Boyd shags have just a touch of sheen for added prestige.",
+        "colorName": "Grey/Multi",
+        "color": ["white", "orange"],
+        "imperfections": [],
+        "perfect": true,
+        "price": 559
+    },
+    {
+        "key": "841847027573", 
+        "images": ["http://images.repzio.com/productimages/175/BOYDBO-01BEBL_lg.jpg", "http://images.repzio.com/productimages/175/BOYDBO-01BEBL_1.jpg", "https://placeimg.com/1000/480/any"],
+        "imagesTN": ["https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any", "https://placeimg.com/150/150/any"],
+        "manufacturer": "Loloi",
+        "collection": "Same",
+        "sizeCategory": "4x6",
+        "sizeTrue": "7'10\"x10'10\"",
+        "pileThickness": ".25in",
+        "construction": "Hand Woven",
+        "material": "Wool/Polyester",
+        "description": "Hand tufted in India, the Boyd Collection is a luxuriously soft collection with sophisticated colors that suit upscale contemporary and transitional room settings. Crafted with wool and touches of viscose, Boyd shags have just a touch of sheen for added prestige.",
+        "colorName": "Grey/Multi",
+        "color": ["white", "orange"],
+        "imperfections": [],
+        "perfect": true,
+        "price": 559
+    }
+]
+
+
+
+

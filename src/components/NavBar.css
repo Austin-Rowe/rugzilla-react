@@ -1,0 +1,70 @@
+a {
+    text-decoration: none;
+    color: black;
+
+}
+
+
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+@media (min-width: 768px){
+    navbar {
+        border-radius: 4px;
+    }
+}
+
+.navbar {
+    border: 1px solid #e7e7e7;
+    margin-bottom: none;
+    width: 100vw;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+    display: block;
+}
+
+.fluid {
+    width: 40vw;
+    margin: 15px 10px;
+}
+
+#cartimg {
+    max-width: 50px;
+    margin-left: 10px;
+}
+
+#navlinks {
+    margin-top: 30px;
+}
+
+#cartcount {
+    text-decoration: none;
+    color: black;
+}
+
+@media (min-width: 900px) { 
+    .fluid {
+        width: 25vw;
+    }
+}
+
+@media (min-width: 1500px) { 
+    .fluid {
+        margin-left: 300px;
+    }
+    #navlinks {
+        margin-right: 300px;
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 2000px) { 
+    .fluid {
+        margin-left: 400px;
+    }
+    #navlinks {
+        margin-right: 400px;
+        font-size: 35px;
+    }
+}
