@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {Button, FormGroup, ControlLabel, FormControl, HelpBlock} from 'react-bootstrap';
+import {Button} from 'react-bootstrap';
 
 
 import './Checkout.css';
@@ -9,119 +9,160 @@ class Checkout extends Component {
     constructor(props){
         super(props);
         this.state = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            street: '',
-            city: '',
-            state: '',
-            zipCode: ''
+            formIsInvalid: false,
+            formData: {
+                firstName: '',
+                lastName: '',
+                email: '',
+                phoneNumber: '',
+                street: '',
+                city: '',
+                state: '',
+                zipCode: ''
+            },
+            formFieldValidity: {
+                firstNameValid: '',
+                lastNameValid: '',
+                emailValid: '',
+                phoneNumberValid: '',
+                streetValid: '',
+                cityValid: '',
+                stateValid: '',
+                zipCodeValid: '' 
+            }
         }
-
-        this.customerInputToState = this.customerInputToState.bind(this);
+        this.inputToState = this.inputToState.bind(this);
         this.submitForm = this.submitForm.bind(this);
     }
 
-    componentDidMount(){
-        const cartCount = this.props.cart.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0)
-        const reducer = (accumulator, current) => accumulator + (current.item.price * current.quantity);
-        const cartDollarTotal = this.props.cart.reduce(reducer, 0);
-        const cartTotal = cartDollarTotal + (cartCount*95/100);
-        this.setState({
-            total: cartTotal
-        })
-    }
-
-    customerInputToState(field){
+    inputToState(field){
         const name = field.target.name;
         const input = field.target.value;
-        this.setState({
-            [name]: input
-        })
+        if(name === 'state' && input === 'State'){
+            this.setState(state => ({
+                formData: {
+                    ...state.formData,
+                    [name]: ''
+                }
+            }))
+        } else {
+            this.setState(state => ({
+                formData: {
+                    ...state.formData,
+                    [name]: input
+                }
+            }))
+        }
     }
 
     submitForm(){
-        
+        const {formData} = this.state;
+        const keys = Object.keys(formData);
+        let validationBools = [];
+        const reducer = (acc, currVal) => acc*currVal;
+        keys.forEach(key => {
+            if(key === 'email'){
+                const validateEmail = (email) => {
+                    var re = /\S+@\S+\.\S+/;
+                    return re.test(email);
+                }
+                if(validateEmail(formData[key]) === false){
+                    validationBools.push(false);
+                } else if(validateEmail(formData[key]) === true){
+                    validationBools.push(true);
+                }
+            } else {
+                if(formData[key] === ''){
+                    validationBools.push(false);
+                } else if(formData[key] !== ''){
+                    validationBools.push(true);
+                }
+            }
+        })
+        if(validationBools.reduce(reducer) === 1){
+            window.alert('Form would be submitted and we would move on to payment!');
+        } else if(validationBools.reduce(reducer) === 0){
+            keys.forEach(key => {
+                if(formData[key] === ''){
+                    this.setState(state => ({
+                        formFieldValidity: {
+                        ...state.formFieldValidity,
+                        [`${key}Valid`]: 'invalid'
+                    }
+                }))
+                    console.log('forEach ran with ' + key);
+                }
+                if(formData[key] !== ''){
+                    if(key === 'email'){
+                        const validateEmail = (email) => {
+                            var re = /\S+@\S+\.\S+/;
+                            return re.test(email);
+                        }
+                        if(validateEmail(formData[key]) === false){
+                            this.setState(state => ({
+                                formFieldValidity: {
+                                    ...state.formFieldValidity,
+                                    [`${key}Valid`]: 'invalid'
+                                }
+                            }))
+                        } else if(validateEmail(formData[key]) === true){
+                            this.setState(state => ({
+                                formFieldValidity: {
+                                    ...state.formFieldValidity,
+                                    [`${key}Valid`]: ''
+                                }
+                            }))
+                        }
+                    } else {
+                        this.setState(state => ({
+                            formFieldValidity: {
+                                ...state.formFieldValidity,
+                                [`${key}Valid`]: ''
+                            }
+                        }))
+                    }
+                }
+            })
+            this.setState({
+                formIsInvalid: true
+            })
+        }
     }
 
-    render() {
-        const {firstName, lastName, email, phoneNumber, street, city, zipCode} = this.state;
+
+    render(){
+        const {firstName, lastName, email, phoneNumber, street, city, state, zipCode} = this.state.formData;
+        const {firstNameValid, lastNameValid, emailValid, phoneNumberValid, streetValid, cityValid, stateValid, zipCodeValid} = this.state.formFieldValidity;
         let states = [
             'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Florida','Georgia','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oklahoma','Oregon','Pennsylvania','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virginia','Washington','West Virginia','Wisconsin','Wyoming'
         ];
-        const stateOptions = states.map(state => <option value={state}>{state}</option>)
-        
-        return ( 
-            <form id="checkout">
-                <FormGroup>
-                    <h1>Contact Info</h1>
-                    <FormControl
-                        type="text"
-                        value={firstName}
-                        placeholder="First Name"
-                        name="firstName"
-                        onChange={this.customerInputToState}
-                    />
-                    <FormControl
-                        className="input-field"
-                        type="text"
-                        value={lastName}
-                        placeholder="Last Name"
-                        name="lastName"
-                        onChange={this.customerInputToState}
-                    />
-                    <FormControl
-                        className="input-field"
-                        type="email"
-                        value={email}
-                        placeholder="Email"
-                        name="email"
-                        onChange={this.customerInputToState}
-                    />
-                    <FormControl
-                        className="input-field"
-                        type="text"
-                        value={phoneNumber}
-                        placeholder="Phone Number"
-                        name="phoneNumber"
-                        onChange={this.customerInputToState}
-                    />
-                    <HelpBlock style={{fontSize: "12px"}}>*Phone number is optional, and will only ever be used if we can not contact you by email.</HelpBlock>
-                </FormGroup>
-                <FormGroup>
-                    <h1>Shipping Address</h1>
-                    <FormControl
-                        type="text"
-                        value={street}
-                        placeholder="Street"
-                        name="street"
-                        onChange={this.customerInputToState}
-                    />
-                    <FormControl
-                        className="input-field"
-                        type="text"
-                        value={city}
-                        placeholder="City"
-                        name="city"
-                        onChange={this.customerInputToState}
-                    />
-                    <FormControl className="input-field" componentClass="select" placeholder="State" name="state" onChange={this.customerInputToState} >
-                        <option value="select">State</option>
+        const stateOptions = states.map(state => <option value={state}>{state}</option>);
+        let invalidMessage;
+        if(this.state.formIsInvalid){
+            invalidMessage = <h5 style={{color: 'red'}}>One or more fields are invalid!</h5>
+        }
+        return(
+            <form onSubmit={this.submitForm} id="form">
+                <label className="form-input-group"> <h3>Customer Contact</h3>
+                    <input name="firstName" className={`form-input ${firstNameValid}`} type="text" value={firstName} onChange={this.inputToState} placeholder="First Name" />
+                    <input name="lastName" className={`form-input ${lastNameValid}`} type="text" value={lastName} onChange={this.inputToState} placeholder="Last Name" />
+                    <input name="email" className={`form-input ${emailValid}`} type="text" value={email} onChange={this.inputToState} placeholder="Email" />
+                    <input name="phoneNumber" className={`form-input ${phoneNumberValid}`} type="text" value={phoneNumber} onChange={this.inputToState} placeholder="Phone Number" />
+                </label>
+                <label className="form-input-group"> <h3>Shipping Address</h3>
+                    <input name="street" className={`form-input ${streetValid}`} type="text" value={street} onChange={this.inputToState} placeholder="Street" />
+                    <input name="city" className={`form-input ${cityValid}`} type="text" value={city} onChange={this.inputToState} placeholder="City" />
+                    {/* <input name="state" className="form-input" type="text" value={state} onChange={this.inputToState} placeholder="State" /> */}
+                    <select className={`form-input ${stateValid}`} name="state" id="state-input" value={state} onChange={this.inputToState} >
+                        <option>State</option>
                         {stateOptions}
-                    </FormControl>
-                    <FormControl
-                        className="input-field"
-                        type="text"
-                        value={zipCode}
-                        placeholder="Zip Code"
-                        name="zipCode"
-                        onChange={this.customerInputToState}
-                    />
-                </FormGroup>
-                <Button bsStyle="primary" id="submit-button" onClick={this.submitForm}>Submit</Button>
+                    </select>
+                    <input name="zipCode" className={`form-input ${zipCodeValid}`} type="text" value={zipCode} onChange={this.inputToState} placeholder="Zip Code" />
+                </label>
+                <Button bsStyle="primary" id="submit-form" onClick={this.submitForm}>Submit</Button>
+                {invalidMessage}
             </form>
-        );
+        )
     }
 }
 
