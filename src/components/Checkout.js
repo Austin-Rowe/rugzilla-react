@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
 import {Button} from 'react-bootstrap';
+import {Redirect} from 'react-router-dom';
 
 
 import './Checkout.css';
@@ -29,7 +29,8 @@ class Checkout extends Component {
                 cityValid: '',
                 stateValid: '',
                 zipCodeValid: '' 
-            }
+            },
+            goToPay: false
         }
         this.inputToState = this.inputToState.bind(this);
         this.submitForm = this.submitForm.bind(this);
@@ -81,6 +82,7 @@ class Checkout extends Component {
         })
         if(validationBools.reduce(reducer) === 1){
             window.alert('Form would be submitted and we would move on to payment!');
+            this.setState({goToPay: true});
         } else if(validationBools.reduce(reducer) === 0){
             keys.forEach(key => {
                 if(formData[key] === ''){
@@ -141,6 +143,9 @@ class Checkout extends Component {
         if(this.state.formIsInvalid){
             invalidMessage = <h5 style={{color: 'red'}}>One or more fields are invalid!</h5>
         }
+        if(this.state.goToPay){
+            return <Redirect to="/payment" />
+        }
         return(
             <form onSubmit={this.submitForm} id="form">
                 <label className="form-input-group"> <h3>Customer Contact</h3>
@@ -166,8 +171,5 @@ class Checkout extends Component {
     }
 }
 
-const mapStateToProps = state => ({
-    cart: state.cart
-})
 
-export default connect(mapStateToProps)(Checkout);
+export default Checkout;

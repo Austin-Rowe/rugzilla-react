@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Cart from './components/Cart';
 import ProductPage from './components/Product';
 import Checkout from './components/Checkout';
+import Payment from './components/Payment';
 import data from './components/JSON/products.json';
 import cartReturner from './redux-functions/cart/cartReturner';
 import cartChangeItemQuantity from './redux-functions/cart/cartChangeItemQuantity';
@@ -85,6 +86,7 @@ class App extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/product/:key" component={ProductPage} />
             <Route path="/checkout" component={Checkout} />
+            <Route path="/payment" component={Payment} />
           </div>
         </Router>
       </Provider>
