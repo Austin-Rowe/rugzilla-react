@@ -3,7 +3,7 @@ import {Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 
 
-import './Checkout.css';
+import './CustomerInfoForm.css';
 
 class Checkout extends Component {
     constructor(props){

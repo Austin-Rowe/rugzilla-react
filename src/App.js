@@ -7,7 +7,7 @@ import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import ProductPage from './components/Product';
-import Checkout from './components/Checkout';
+import CustomerInfoForm from './components/CustomerInfoForm';
 import Payment from './components/Payment';
 import data from './components/JSON/products.json';
 import cartReturner from './redux-functions/cart/cartReturner';
@@ -85,7 +85,7 @@ class App extends Component {
             <Route exact path="/" render={(props) => <Home {...props} loadMoreQuantity={3} />} />
             <Route path="/cart" component={Cart} />
             <Route path="/product/:key" component={ProductPage} />
-            <Route path="/checkout" component={Checkout} />
+            <Route path="/customerInfoForm" component={CustomerInfoForm} />
             <Route path="/payment" component={Payment} />
           </div>
         </Router>

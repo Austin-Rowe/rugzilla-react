@@ -68,7 +68,7 @@ class CartItem extends Component {
                         <Label bsStyle="success" className="cart-quantity-button add" onClick={this.increment}>+</Label>  
                         <Badge>{this.props.cartItem.quantity}</Badge>  
                         <Label bsStyle="danger" className="cart-quantity-button remove" onClick={this.decrement}>-</Label>
-                        <Button bsStyle="danger" className="remove-all-button" onClick={this.removeFromCart}>Remove Item</Button>
+                        <Button bsStyle="danger" className="remove-all-button" onClick={this.removeFromCart}>Remove</Button>
                     </div>
                     <p className="cart-item-description">{item.description}</p>
                 </Col>
@@ -110,7 +110,7 @@ class Cart extends React.Component {
                         </Col>
                         <Col sm={6} id="total-summary">
                             <h3>Total: <sup>$</sup>{cartTotal.toFixed(2)}</h3>
-                            <Link to="/checkout">
+                            <Link to="/customerInfoForm">
                                 <Button bsStyle="primary" style={{
                                     width: "65%",
                                     height: "45px"
