@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 
 import './CustomerInfoForm.css';
@@ -10,16 +11,7 @@ class Checkout extends Component {
         super(props);
         this.state = {
             formIsInvalid: false,
-            formData: {
-                firstName: '',
-                lastName: '',
-                email: '',
-                phoneNumber: '',
-                street: '',
-                city: '',
-                state: '',
-                zipCode: ''
-            },
+            formData: this.props.customerInfo,
             formFieldValidity: {
                 firstNameValid: '',
                 lastNameValid: '',
@@ -81,7 +73,15 @@ class Checkout extends Component {
             }
         })
         if(validationBools.reduce(reducer) === 1){
-            window.alert('Form would be submitted and we would move on to payment!');
+            const customerInfoAction = customerInfoObj => ({
+                type: 'UPDATECUSTOMERINFO',
+                customerInfo: customerInfoObj
+            });
+
+            const customerInfo = customerInfoAction(this.state.formData);
+
+            this.props.dispatch(customerInfo);
+
             this.setState({goToPay: true});
         } else if(validationBools.reduce(reducer) === 0){
             keys.forEach(key => {
@@ -171,5 +171,8 @@ class Checkout extends Component {
     }
 }
 
+const mapStateToProps = state => ({
+    customerInfo: state.customerInfo
+})
 
-export default Checkout;
+export default connect(mapStateToProps)(Checkout);

@@ -50,11 +50,22 @@ const initialState = {
   sortByPrice: {
     lowToHigh: false,
     highToLow: false
+  },
+  customerInfo: {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: '',
+    street: '',
+    city: '',
+    state: '',
+    zipCode: ''
   }
 };
 
 function reducer(state = initialState, action){
   switch(action.type){
+    case "UPDATECUSTOMERINFO": return {...state, customerInfo: action.customerInfo};
     case "VIEWMORE": return {...state, visibleProducts: state.visibleProducts + 1 };
     case "ADDFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: addFilterParam(state.filteredData, action) };
     case "REMOVEFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: removeFilterParam(state.data, state.appliedFilters, state.sortByPrice) };
