@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid,Row,Col,Button,Badge,Label,Jumbotron } from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import PaypalButton from './paypal/PaypalButton';
@@ -70,6 +70,9 @@ const CartItem = (props) => {
 class Payment extends Component{
     constructor(props){
         super(props);
+        this.state={
+            paymentSuccessful: false
+        }
     }
 
     render(){
@@ -85,9 +88,18 @@ class Payment extends Component{
         }
         const onSuccess = (payment) => {
             console.log(payment);
+            this.setState({
+                paymentSuccessful: true
+            })
         }
 
-        if(cartItems.length > 0){
+        if(this.state.paymentSuccessful){
+            return(
+                <Redirect to="/confirmation" />
+            )
+        }
+
+        if(cartItems.length > 0 && !this.state.paymentSuccessful){
             return(
                 <Grid>
                     <Row id="payment">
