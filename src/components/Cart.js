@@ -94,14 +94,8 @@ class Cart extends React.Component {
         const cartItems = props.cart.map( cartItem =>
             <CartItem cartItem={cartItem} dispatch={props.dispatch} key={cartItem.key} />
         )
-        const onSuccess = (payment) => {
-            console.log(payment);
-        }
+        
         if(cartItems.length > 0){
-            const client = {
-                sandbox: "AVs_AY19sM-9EkTmunOiYdmxmqGYMxuOi7dB9nRusGx4MpIZ9mn3vHtxs76R7uShG2juynPzEbVCq3Pc",
-                production: ""
-            }
             return(
                 <Grid id="cart">
                     <Row>
@@ -123,15 +117,7 @@ class Cart extends React.Component {
                                     height: "45px"
                                 }}>Return to Items</Button>
                             </Link>
-                            {/* <PaypalButton 
-                                client={client} 
-                                env={"sandbox"} 
-                                commit={true} 
-                                currency={'USD'} 
-                                total={cartTotal}
-                                onSuccess={onSuccess}
-                            /> */}
-                        </Col>
+                            </Col>
                     </Row>
                     {cartItems}
                 </Grid>
@@ -139,7 +125,7 @@ class Cart extends React.Component {
         }
         return(
             <Jumbotron id="empty-cart-jumbotron">
-                <h1>There's nothing here. How disappointing!</h1>
+                <h1>There's nothing in your cart. How disappointing!</h1>
                 <h3>Lets see if we can change that!</h3>
                 <Link to="/" >
                     <Button bsStyle="primary" bsSize="large">Return to Products!</Button>

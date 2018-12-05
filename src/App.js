@@ -19,7 +19,7 @@ import modifyAppliedFilters from './redux-functions/product-filter/modifyApplied
 import sortByPrice from './redux-functions/product-sort/sortByPrice';
 import modifyPriceSort from './redux-functions/product-sort/modifySortByPriceObj';
 
-function saveToLocalStorage(state){
+function saveCartToLocalStorage(state){
   try{
     const serializedCart = JSON.stringify(state.cart);
     localStorage.setItem('cart', serializedCart)
@@ -28,7 +28,7 @@ function saveToLocalStorage(state){
   }
 }
 
-function loadFromLocalStorage(){
+function loadCartFromLocalStorage(){
   try{
     const serializedCart = localStorage.getItem('cart');
     return serializedCart === null ?  [] : JSON.parse(serializedCart);
@@ -38,7 +38,30 @@ function loadFromLocalStorage(){
   }
 }
 
-const persistedCart = loadFromLocalStorage();
+const persistedCart = loadCartFromLocalStorage();
+
+function saveCustomerInfoToLocalStorage(state){
+  try{
+    const serializedCustomerInfo = JSON.stringify(state.customerInfo);
+    localStorage.setItem('customerInfo', serializedCustomerInfo)
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+function loadCustomerInfoFromLocalStorage(){
+  try{
+    const serializedCustomerInfo = localStorage.getItem('customerInfo');
+    return serializedCustomerInfo === null ?  {
+      firstName: '', lastName: '', email: '', phoneNumber: '', street: '', city: '', state: '', zipCode: ''
+    } : JSON.parse(serializedCustomerInfo);
+  } catch(e){
+    console.log(e);
+    return undefined;
+  }
+}
+
+const customerInfo = loadCustomerInfoFromLocalStorage();
 
 const initialState = {
   cart: persistedCart,
@@ -51,16 +74,7 @@ const initialState = {
     lowToHigh: false,
     highToLow: false
   },
-  customerInfo: {
-    firstName: '',
-    lastName: '',
-    email: '',
-    phoneNumber: '',
-    street: '',
-    city: '',
-    state: '',
-    zipCode: ''
-  }
+  customerInfo: customerInfo
 };
 
 function reducer(state = initialState, action){
@@ -83,7 +97,8 @@ const store = createStore(reducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()  
 );
 
-store.subscribe(() => saveToLocalStorage(store.getState()));
+store.subscribe(() => saveCartToLocalStorage(store.getState()));
+store.subscribe(() => saveCustomerInfoToLocalStorage(store.getState()));
 
 
 class App extends Component {
