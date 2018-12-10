@@ -10,7 +10,6 @@ import ProductPage from './components/Product';
 import CustomerInfoForm from './components/CustomerInfoForm';
 import Payment from './components/Payment';
 import PaymentConfirmation from './components/PaymentConfirmation';
-import data from './components/JSON/products.json';
 import cartReturner from './redux-functions/cart/cartReturner';
 import cartChangeItemQuantity from './redux-functions/cart/cartChangeItemQuantity';
 import removeFromCart from './redux-functions/cart/removeFromCart';
@@ -67,9 +66,9 @@ const customerInfo = loadCustomerInfoFromLocalStorage();
 const initialState = {
   cart: persistedCart,
   productsPerLoad: 4,
-  data,
+  data: [],
   appliedFilters: [],
-  filteredData: data,
+  filteredData: [],
   visibleProducts: 1,
   sortByPrice: {
     lowToHigh: false,
@@ -80,6 +79,7 @@ const initialState = {
 
 function reducer(state = initialState, action){
   switch(action.type){
+    case "LOADDATA": return {...state, data: action.data, filteredData: action.data};
     case "UPDATECUSTOMERINFO": return {...state, customerInfo: action.customerInfo};
     case "VIEWMORE": return {...state, visibleProducts: state.visibleProducts + 1 };
     case "ADDFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: addFilterParam(state.filteredData, action) };

@@ -107,6 +107,31 @@ class Filter extends Component {
         this.setState({filterOptions: filterOptions});
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.data !== this.props.data){
+            const filterOptionsArray = [
+                {
+                    title: 'Size',
+                    filterType: 'sizeCategory'
+                },
+                {
+                    title: 'Material',
+                    filterType: 'material'
+                },
+                {
+                    title: 'Thickness',
+                    filterType: 'pileThickness'
+                },
+                {
+                    title: 'Construction',
+                    filterType: 'construction'
+                }
+            ];
+            const filterOptions = filterOptionsArray.map(item => <FilterOptions title={item.title} filterType={item.filterType} data={this.props.data} dispatch={this.props.dispatch} />);
+            this.setState({filterOptions: filterOptions});
+        }
+    }
+
     sortPriceLowHigh(){
         if(!this.state.lowHighChecked){
             this.setState({
@@ -297,15 +322,40 @@ class Products extends Component {
 }
 
 
-function Home(props){
-    return(
-        <Grid fluid>
-            <Row>
-                <Filter data={props.data} dispatch={props.dispatch}/>
-                <Products filteredData={props.filteredData} visibleProducts={props.visibleProducts} dispatch={props.dispatch}/>
-            </Row>
-        </Grid>
-    )
+class Home extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dataForFilter: []            
+        }
+    }
+
+    componentDidMount(){
+        fetch('http://127.0.1.1:8000/rugs')
+        .then(res => {
+            return res.json()
+        })
+        .then(resArr => {
+            this.props.dispatch({type:'LOADDATA', data: resArr});
+            this.setState({dataForFilter: resArr});
+        })
+        .catch(err => console.log(err))
+    }
+
+    render() {
+        const {
+            props,
+        } = this;
+
+        return(
+            <Grid fluid>
+                <Row>
+                    <Filter data={this.state.dataForFilter} dispatch={props.dispatch}/>
+                    <Products filteredData={props.filteredData} visibleProducts={props.visibleProducts} dispatch={props.dispatch}/>
+                </Row>
+            </Grid>
+        )
+    }
 }
 
 const mapStateToProps = state => ({
