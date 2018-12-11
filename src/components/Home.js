@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Grid,Row,Col,Thumbnail,Button,Badge,Label,Panel,Checkbox } from 'react-bootstrap';
 import { connect } from 'react-redux';
-
-
+import Spinner from './stylingComponents/Spinner';
 import './Home.css';
 
 class FilterOption extends Component {
@@ -77,14 +76,27 @@ class Filter extends Component {
         this.state = {
             lowHighChecked: false,
             highLowChecked: false,
-            filterOptions: []
+            filterOptions: [],
+            filterExp: true
         }
 
         this.sortPriceLowHigh = this.sortPriceLowHigh.bind(this);
         this.sortPriceHighLow = this.sortPriceHighLow.bind(this);
+        this.initFilterExp = this.initFilterExp.bind(this);
+        this.toggleFilterExp = this.toggleFilterExp.bind(this);
+    }
+
+    toggleFilterExp(){
+        this.setState(state => ({filterExp: !state.filterExp}))
+    }
+
+    initFilterExp(){
+        this.setState({filterExp: window.innerWidth > 767})
     }
 
     componentDidMount(){
+        this.initFilterExp();
+        window.addEventListener("resize", this.initFilterExp);
         const filterOptionsArray = [
             {
                 title: 'Size',
@@ -188,7 +200,7 @@ class Filter extends Component {
     render() {
         return(
             <Col sm={3} md={2} xl={1} id="filter">
-                <Panel defaultExpanded bsStyle="primary">
+                <Panel expanded={this.state.filterExp} bsStyle="primary" onClick={this.toggleFilterExp}>
                     <Panel.Heading>
                     <Panel.Title componentClass="h3" toggle >Filter & Sort</Panel.Title>
                     
@@ -326,7 +338,8 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            dataForFilter: []            
+            dataForFilter: [],
+            loading: true            
         }
     }
 
@@ -337,7 +350,7 @@ class Home extends React.Component {
         })
         .then(resArr => {
             this.props.dispatch({type:'LOADDATA', data: resArr});
-            this.setState({dataForFilter: resArr});
+            this.setState({dataForFilter: resArr, loading: false});
         })
         .catch(err => console.log(err))
     }
@@ -347,6 +360,11 @@ class Home extends React.Component {
             props,
         } = this;
 
+        if(this.state.loading){
+            return(
+                <Spinner loadingMessage='Loading...' />
+            )
+        }
         return(
             <Grid fluid>
                 <Row>

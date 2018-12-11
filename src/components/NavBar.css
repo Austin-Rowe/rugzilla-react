@@ -51,10 +51,10 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
 
 @media (min-width: 1500px) { 
     .fluid {
-        margin-left: 300px;
+        margin-left: 100px;
     }
     #navlinks {
-        margin-right: 300px;
+        margin-right: 100px;
         font-size: 18px;
     }
 }

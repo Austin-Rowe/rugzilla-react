@@ -87,7 +87,7 @@ class Payment extends Component{
             production: ""
         }
         const onSuccess = (payment) => {
-            console.log(payment, this.props.cart.map(itemObj => itemObj.item), this.props.customerInfo);
+            console.log(payment, this.props.cart, this.props.customerInfo);
             this.setState({
                 paymentSuccessful: true
             })
