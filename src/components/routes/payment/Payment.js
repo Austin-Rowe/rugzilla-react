@@ -3,7 +3,7 @@ import { Grid,Row,Col,Button,Badge,Label,Jumbotron } from 'react-bootstrap';
 import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import PaypalButton from './paypal/PaypalButton';
+import PaypalButton from '../../paypal/PaypalButton';
 import './Payment.css'
 
 
@@ -95,7 +95,7 @@ class Payment extends Component{
 
         if(this.state.paymentSuccessful){
             return(
-                <Redirect to="/confirmation" />
+                <Redirect push to="/confirmation" />
             )
         }
 

@@ -81,6 +81,7 @@ class ProductPage extends Component {
 
     componentDidMount(){
         const {data, match} = this.props;
+        console.log(match);
         const product = data.find(item => item.key == match.params.key);
         const images = product.images.map(item => ({
             original: item,

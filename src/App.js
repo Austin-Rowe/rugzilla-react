@@ -4,12 +4,12 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import NavBar from './components/NavBar';
-import Home from './components/Home';
-import Cart from './components/Cart';
-import ProductPage from './components/Product';
-import CustomerInfoForm from './components/CustomerInfoForm';
-import Payment from './components/Payment';
-import PaymentConfirmation from './components/PaymentConfirmation';
+import Home from './components/routes/home/Home';
+import Cart from './components/routes/cart/Cart';
+import ProductPage from './components/routes/product/Product';
+import CustomerInfoForm from './components/routes/customerInfo/CustomerInfoForm';
+import Payment from './components/routes/payment/Payment';
+import PaymentConfirmation from './components/routes/paymentConfirmation/PaymentConfirmation';
 import cartReturner from './redux-functions/cart/cartReturner';
 import cartChangeItemQuantity from './redux-functions/cart/cartChangeItemQuantity';
 import removeFromCart from './redux-functions/cart/removeFromCart';
@@ -34,7 +34,7 @@ function loadCartFromLocalStorage(){
     return serializedCart === null ?  [] : JSON.parse(serializedCart);
   } catch(e){
     console.log(e);
-    return undefined;
+    return [];
   }
 }
 
@@ -57,16 +57,37 @@ function loadCustomerInfoFromLocalStorage(){
     } : JSON.parse(serializedCustomerInfo);
   } catch(e){
     console.log(e);
-    return undefined;
+    return { firstName: '', lastName: '', email: '', phoneNumber: '', street: '', city: '', state: '', zipCode: '' };
   }
 }
 
 const customerInfo = loadCustomerInfoFromLocalStorage();
 
+function saveProductsToLocalStorage(state){
+  try{
+    const products = JSON.stringify(state.data);
+    localStorage.setItem('products', products)
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+function loadProductsFromLocalStorage(){
+  try{
+    const products = localStorage.getItem('products');
+    return products === null ?  [] : JSON.parse(products);
+  } catch(e){
+    console.log(e);
+    return [];
+  }
+}
+
+const products = loadProductsFromLocalStorage();
+
 const initialState = {
   cart: persistedCart,
   productsPerLoad: 4,
-  data: [],
+  data: products,
   appliedFilters: [],
   filteredData: [],
   visibleProducts: 1,
@@ -100,6 +121,8 @@ const store = createStore(reducer,
 
 store.subscribe(() => saveCartToLocalStorage(store.getState()));
 store.subscribe(() => saveCustomerInfoToLocalStorage(store.getState()));
+store.subscribe(() => saveProductsToLocalStorage(store.getState()));
+
 
 
 class App extends Component {

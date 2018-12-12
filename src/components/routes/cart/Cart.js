@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import { Image,Grid,Row,Col,Badge,Label,Button,Jumbotron } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PaypalButton from './paypal/PaypalButton';
 
 
-import Or from './stylingComponents/Or';
+import Or from '../../stylingComponents/Or';
 import './Cart.css';
 
 

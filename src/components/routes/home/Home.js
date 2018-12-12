@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid,Row,Col,Thumbnail,Button,Badge,Label,Panel,Checkbox } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import Spinner from './stylingComponents/Spinner';
+import Spinner from '../../stylingComponents/Spinner';
 import './Home.css';
 
 class FilterOption extends Component {
