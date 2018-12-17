@@ -11,25 +11,15 @@ import cartimg from '../images/cart.png';
 function NavBar(props){
     const cartCount = props.cart.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0);
     return(
-        <Navbar collapseOnSelect fluid>
-            <Navbar.Header>
-                <Link to="/">
-                    <Image src={logoimg} className="fluid" />
-                </Link>
-                <Navbar.Toggle />
-            </Navbar.Header>
-            <Navbar.Collapse>
-                <Nav pullRight id="navlinks">
-                    <Link to="/product">
-                        Contact Us
-                    </Link>
-                    <Link to="/cart">
-                        <Image src={cartimg} alt="cart" id="cartimg" />
-                        <Badge>{cartCount}</Badge>
-                    </Link>
-                </Nav>
-            </Navbar.Collapse>
-        </Navbar>
+        <div id="navBar">
+            <Link to="/">
+                <Image src={logoimg} className="fluid" />
+            </Link>
+            <Link to="/cart" id="cart-cluster">
+                <Image src={cartimg} alt="cart" id="cartimg" />
+                <Badge>{cartCount}</Badge>
+            </Link>
+        </div>
     );
 }
 
@@ -40,3 +30,4 @@ const mapStateToProps = (state) => ({
 
 
 export default connect(mapStateToProps)(NavBar);
+
