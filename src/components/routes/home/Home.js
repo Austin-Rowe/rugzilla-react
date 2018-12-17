@@ -200,8 +200,8 @@ class Filter extends Component {
     render() {
         return(
             <Col sm={3} md={2} xl={1} id="filter">
-                <Panel expanded={this.state.filterExp} bsStyle="primary" onClick={this.toggleFilterExp}>
-                    <Panel.Heading>
+                <Panel expanded={this.state.filterExp} bsStyle="primary" >
+                    <Panel.Heading onClick={this.toggleFilterExp}>
                     <Panel.Title componentClass="h3" toggle >Filter & Sort</Panel.Title>
                     
                     </Panel.Heading>
@@ -334,7 +334,7 @@ class Products extends Component {
 }
 
 
-class Home extends React.Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {

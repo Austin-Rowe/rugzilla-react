@@ -1,0 +1,33 @@
+#footer-body {
+    background-color: #f8f8f8;
+    border-top: solid 1px #e7e7e7;
+    color: #848484;
+    min-height: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.footer-col {
+   margin-bottom: 50px;
+}
+
+.footer-link {
+    color: #848484;
+}
+
+.social-icon {
+    max-height: 30px;
+    max-width: 30px;
+    margin: 0 5px;
+}
+
+.social-icon:hover {
+    transform: scale(1.3);
+}
+
+
+@media (min-width: 768px) {
+    .footer-col {
+        margin-bottom: 10px;
+    }
+}

@@ -4,6 +4,7 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import Home from './components/routes/home/Home';
 import Cart from './components/routes/cart/Cart';
 import ProductPage from './components/routes/product/Product';
@@ -138,6 +139,7 @@ class App extends Component {
             <Route path="/customerInfoForm" component={CustomerInfoForm} />
             <Route path="/payment" component={Payment} />
             <Route path="/confirmation" component={PaymentConfirmation} />
+            <Footer />
           </div>
         </Router>
       </Provider>
