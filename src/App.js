@@ -96,7 +96,8 @@ const initialState = {
     lowToHigh: false,
     highToLow: false
   },
-  customerInfo: customerInfo
+  customerInfo: customerInfo,
+  payPalSuccess: {}
 };
 
 function reducer(state = initialState, action){
@@ -112,6 +113,7 @@ function reducer(state = initialState, action){
     case "DECREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };
     case "REMOVEFROMCART": return {...state, cart: removeFromCart(state.cart, action) };
     case "ADD_TO_CART": return { ...state, cart: cartReturner(state.cart, action)};
+    case "PAYPALSUCCESS": return {...state, payPalSuccess: action.data};
     default: return state;
   }
 }

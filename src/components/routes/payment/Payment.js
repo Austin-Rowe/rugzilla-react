@@ -90,7 +90,8 @@ class Payment extends Component{
             console.log(payment, this.props.cart, this.props.customerInfo);
             this.setState({
                 paymentSuccessful: true
-            })
+            });
+            this.props.dispatch({type:'PAYPALSUCCESS', data: payment});
         }
 
         if(this.state.paymentSuccessful){
@@ -125,6 +126,7 @@ class Payment extends Component{
                                 currency={'USD'}
                                 total={cartTotal}
                                 onSuccess={onSuccess}
+                                shipping={1}
                             />
                         </Col>
                     </Row>

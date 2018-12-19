@@ -54,7 +54,8 @@ class PaypalButton extends Component {
             client,
             onSuccess,
             onError,
-            onCancel
+            onCancel,
+            shipping
         } = this.props;
     
         const {showButton} = this.state;
@@ -68,6 +69,10 @@ class PaypalButton extends Component {
                     }
                 }
             ]
+        },{
+            input_fields: {
+                no_shipping: shipping
+            }
         });
 
         const onAuthorize = (data, actions) => actions.payment.execute()
@@ -104,6 +109,7 @@ class PaypalButton extends Component {
                         onCancel={onCancel}
                         onError={onError}
                         style={payPalStyle}
+                        shipping={shipping}
                     />
                 </div>
             );
