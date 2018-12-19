@@ -85,6 +85,27 @@ function loadProductsFromLocalStorage(){
 
 const products = loadProductsFromLocalStorage();
 
+function persistOrderDataToLocalStorage(state){
+  try{
+    const orderData = JSON.stringify(state.orderData);
+    localStorage.setItem('orderData', orderData)
+  } catch(e) {
+    console.log(e);
+  }
+}
+
+function loadOrderDataFromLocalStorage(){
+  try{
+    const orderData = localStorage.getItem('orderData');
+    return orderData === null ?  {purchaseCart:[]} : JSON.parse(orderData);
+  } catch(e){
+    console.log(e);
+    return {purchaseCart:[]};
+  }
+}
+
+const orderData = loadOrderDataFromLocalStorage();
+
 const initialState = {
   cart: persistedCart,
   productsPerLoad: 4,
@@ -97,7 +118,7 @@ const initialState = {
     highToLow: false
   },
   customerInfo: customerInfo,
-  payPalSuccess: {}
+  orderData: orderData
 };
 
 function reducer(state = initialState, action){
@@ -113,7 +134,7 @@ function reducer(state = initialState, action){
     case "DECREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };
     case "REMOVEFROMCART": return {...state, cart: removeFromCart(state.cart, action) };
     case "ADD_TO_CART": return { ...state, cart: cartReturner(state.cart, action)};
-    case "PAYPALSUCCESS": return {...state, payPalSuccess: action.data};
+    case "PAYPALSUCCESS": return {...state, orderData: action.data};
     default: return state;
   }
 }
@@ -125,7 +146,7 @@ const store = createStore(reducer,
 store.subscribe(() => saveCartToLocalStorage(store.getState()));
 store.subscribe(() => saveCustomerInfoToLocalStorage(store.getState()));
 store.subscribe(() => saveProductsToLocalStorage(store.getState()));
-
+store.subscribe(() => persistOrderDataToLocalStorage(store.getState()));
 
 
 class App extends Component {

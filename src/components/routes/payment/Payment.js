@@ -87,11 +87,15 @@ class Payment extends Component{
             production: ""
         }
         const onSuccess = (payment) => {
-            console.log(payment, this.props.cart, this.props.customerInfo);
+            const paymentData = {
+                payPalRes: payment,
+                purchaseCart: this.props.cart,
+                customerInfo: this.props.customerInfo
+            };
             this.setState({
                 paymentSuccessful: true
             });
-            this.props.dispatch({type:'PAYPALSUCCESS', data: payment});
+            this.props.dispatch({type:'PAYPALSUCCESS', data: paymentData});
         }
 
         if(this.state.paymentSuccessful){
