@@ -1,0 +1,13 @@
+#awaiting-confirmation {
+   margin: 15vh 0px;
+}
+
+#order-confirmation-jumbotron {
+    max-width: 85vw;
+    margin: 5vh auto;
+    text-align: center;
+}
+
+#go-home-button {
+    margin-top: 30px;
+}

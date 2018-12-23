@@ -57,8 +57,8 @@ class CartItem extends Component {
         const item = this.props.cartItem.item;
         return (
             <Row className="cartitem">
-                <Col sm={6}>
-                    <Image src={item.images[0]} alt="Product" responsive className="cart-image" />
+                <Col sm={6} className="cart-image-col">
+                    <Image src={item.images[0]} alt="Product" className="cart-image" />
                 </Col>
                 <Col sm={6} className="cart-item-text">
                     <h3>{item.manufacturer} {item.collection} {item.sizeCategory}</h3>

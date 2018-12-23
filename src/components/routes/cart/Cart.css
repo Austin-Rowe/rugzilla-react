@@ -1,5 +1,9 @@
-.cartitemimage {
-    width: 20%;
+.cart-image {
+    width: 60%;
+}
+
+.cart-image-col {
+    text-align: center;
 }
 
 .cartitem {

@@ -51,15 +51,17 @@ class PaymentConfirmation extends Component{
 
         if(this.state.loading){
             return(
-                <Spinner loadingMessage='Awaiting Confirmation...' />
+                <div id="awaiting-confirmation">
+                    <Spinner loadingMessage='Awaiting Confirmation...' />
+                </div>
             )
         }
         return(
-             <Jumbotron id="empty-cart-jumbotron">
-                <h1>Thank you for ordering with United Textiles!</h1>
+             <Jumbotron id="order-confirmation-jumbotron">
+                <h1>Thanks {this.props.orderData.customerInfo.firstName}, we really appreciate your business!</h1>
                 <h3>Your confirmation # is {this.state.confirmationNumber}</h3>
                 <Link to="/" >
-                    <Button bsStyle="primary" bsSize="large">Return to Homepage</Button>
+                    <Button bsStyle="primary" bsSize="large" id="go-home-button">Return to Homepage</Button>
                 </Link>
             </Jumbotron>
         )

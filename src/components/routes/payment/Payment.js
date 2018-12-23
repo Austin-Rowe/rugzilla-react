@@ -109,7 +109,7 @@ class Payment extends Component{
                 <Grid>
                     <Row id="payment">
                         <Col sm={4} id="cart-col">
-                        <h1 id='cart-col-head'>Your Items</h1>
+                            <h1 id='cart-col-head'>Your Items</h1>
                             {cartItems}
                         </Col>
                         <Col id="info-col" sm={4}>
