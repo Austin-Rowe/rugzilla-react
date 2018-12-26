@@ -5,7 +5,15 @@ const cartChangeItemQuantity = (cart, action) => {
     let newCartArray = cart.slice();
     
     if(matchingKey >= 0){
-        newCartArray[matchingKey].quantity = action.quantity;
+        if(newCartArray[matchingKey].maxQuantity === false && newCartArray[matchingKey].item.availableQuantity > action.quantity){
+            newCartArray[matchingKey].quantity = action.quantity;
+        } else if(newCartArray[matchingKey].item.availableQuantity === action.quantity){
+            newCartArray[matchingKey].maxQuantity = true;
+            newCartArray[matchingKey].quantity = action.quantity;
+        } else if(newCartArray[matchingKey].maxQuantity === true && newCartArray[matchingKey].item.availableQuantity > action.quantity){
+            newCartArray[matchingKey].quantity = action.quantity;
+            newCartArray[matchingKey].maxQuantity = false;
+        }
     }
   
   

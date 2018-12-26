@@ -18,9 +18,8 @@ const Footer = () => {
                 </Col>
                 <Col sm={4} md={2} className="footer-col">
                     <h4>Connect With Us</h4>
-                    <SocialIcon url="http://facebook.com" className="social-icon"/>
-                    <SocialIcon url="http://twitter.com" className="social-icon"/>
-                    <SocialIcon url="http://instagram.com" className="social-icon"/>
+                    <SocialIcon url="http://www.facebook.com/unitedtextileshome/" className="social-icon"/>
+                    <SocialIcon url="http://www.instagram.com/unitedtextiles1917/?hl=en" className="social-icon"/>
                 </Col>                                
                 <Col sm={3} md={2} className="footer-col">
                     <h4>About Us</h4>

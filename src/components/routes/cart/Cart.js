@@ -69,6 +69,7 @@ class CartItem extends Component {
                         <Label bsStyle="danger" className="cart-quantity-button remove" onClick={this.decrement}>-</Label>
                         <Button bsStyle="danger" className="remove-all-button" onClick={this.removeFromCart}>Remove</Button>
                     </div>
+                    {this.props.cartItem.maxQuantity ? <p className="max-quantity-indicator">* Max Available Quantity</p> : null}
                     <p className="cart-item-description">{item.description}</p>
                 </Col>
             </Row>

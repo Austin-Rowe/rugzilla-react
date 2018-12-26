@@ -6,7 +6,14 @@ const cartReturner = (cart, action) => {
   //Ensure new array isnt empty
   const arrayChecker = (array, index) => {
     if(index >= 0){
-      array[index].quantity = array[index].quantity + action.quantity;
+      if(array[index].maxQuantity !== true){
+        if(array[index].quantity + action.quantity >= array[index].item.availableQuantity){
+          array[index].quantity = array[index].item.availableQuantity;
+          array[index].maxQuantity = true;
+        } else {
+          array[index].quantity = array[index].quantity + action.quantity;
+        }
+      }
       return array;
     } else {
       return [...array, action]

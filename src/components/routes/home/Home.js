@@ -226,7 +226,8 @@ class Product extends Component {
     constructor(props){
         super(props);
         this.state = {
-            quantity: 1
+            quantity: 1,
+            maxQuantiy: false
         }
         this.increment = this.increment.bind(this);
         this.decrement = this.decrement.bind(this);
@@ -235,33 +236,40 @@ class Product extends Component {
     
     increment(e){
         e.preventDefault();
-        this.setState({
-            quantity: this.state.quantity + 1
-        });
-    }
-
-    decrement(e){
-        e.preventDefault();
-        if(this.state.quantity > 1){
+        if(this.props.obj.availableQuantity > this.state.quantity && this.props.obj.availableQuantity - 1 === this.state.quantity ){
             this.setState({
-                quantity: this.state.quantity - 1
+                quantity: this.state.quantity + 1,
+                maxQuantiy: true
             });
-        } else {
-            return;
+        } else if(this.props.obj.availableQuantity > this.state.quantity){
+            this.setState({quantity: this.state.quantity + 1});
         }
         
     }
 
+    decrement(e){
+        e.preventDefault();
+        if(this.state.quantity > 1 && this.props.obj.availableQuantity === this.state.quantity){
+            this.setState({
+                quantity: this.state.quantity - 1,
+                maxQuantity: false
+            });
+        } else if(this.state.quantity > 1){
+            this.setState({quantity: this.state.quantity - 1});
+        }
+    }
+
     addToCart(e){
         e.preventDefault();
-        function cartActionCreator(quantity, item){
+        const cartActionCreator = (quantity, item, maxQuantity) => {
             return {
                 type: "ADD_TO_CART",
                 quantity: quantity,
-                item: item
+                item: item,
+                maxQuantity: maxQuantity
             }
         }
-        const cartAction = cartActionCreator(this.state.quantity, this.props.obj);
+        const cartAction = cartActionCreator(this.state.quantity, this.props.obj, this.state.maxQuantiy);
         this.props.dispatch(cartAction);
     }
 
@@ -286,6 +294,7 @@ class Product extends Component {
                             </div>
                             <Button bsStyle="primary" className="remove-all-button" onClick={this.addToCart}>Add to Cart</Button>
                         </div>
+                        {this.state.maxQuantiy ? <p className="max-quantity-indicator">* Max Available Quantity</p> : null}
                     </div>
                 </Thumbnail>
             </Col> 

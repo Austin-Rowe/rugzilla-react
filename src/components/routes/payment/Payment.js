@@ -61,6 +61,7 @@ const CartItem = (props) => {
                     <Label bsStyle="danger" className="cart-quantity-button remove" onClick={decrement}>-</Label>
                     <Button bsStyle="danger" className="remove-all-button" onClick={removeFromCart}>Remove</Button>
                 </div>
+                {cartItem.maxQuantity ? <p className="max-quantity-indicator">* Max Available Quantity</p> : null}
             </Col>
         </Row>
     )
