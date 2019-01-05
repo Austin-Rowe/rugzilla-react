@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid,Row,Col,Button,Badge,Label,Jumbotron } from 'react-bootstrap';
 import {Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import PaypalButton from '../../paypal/PaypalButton';
 import './Payment.css'
@@ -107,45 +108,56 @@ class Payment extends Component{
 
         if(cartItems.length > 0 && !this.state.paymentSuccessful){
             return(
-                <Grid>
-                    <Row id="payment">
-                        <Col sm={4} id="cart-col">
-                            <h1 id='cart-col-head'>Your Items</h1>
-                            {cartItems}
-                        </Col>
-                        <Col id="info-col" sm={4}>
-                            <h1>Your Info</h1>
-                            <p id="info">{customerInfo.firstName} {customerInfo.lastName} <br/> {customerInfo.street} <br/> {customerInfo.city}, {customerInfo.state} <br/> {customerInfo.zipCode} <br/> {customerInfo.email} <br/> {customerInfo.phoneNumber}</p>
-                            <Link to="/customerInfoForm">
-                                <Button id="edit-info-button" bsStyle="primary">Edit Info</Button>
-                            </Link>
-                        </Col>
-                        <Col id="pay-col" sm={4}>
-                            <h1>Your Total</h1>
-                            <h2 id="price"><sup>$</sup>{cartTotal.toFixed(2)}</h2>
-                            <h3 id="shipping-cost">with<br/>Free Shipping!</h3>
-                            <PaypalButton
-                                client={client}
-                                env={'sandbox'}
-                                commit={true}
-                                currency={'USD'}
-                                total={cartTotal}
-                                onSuccess={onSuccess}
-                                shipping={1}
-                            />
-                        </Col>
-                    </Row>
-                </Grid>
+                <React.Fragment>
+                    <Helmet>
+                        <title>Confirm & Pay</title>
+                    </Helmet>
+                    <Grid>
+                        <Row id="payment">
+                            <Col sm={4} id="cart-col">
+                                <h1 id='cart-col-head'>Your Items</h1>
+                                {cartItems}
+                            </Col>
+                            <Col id="info-col" sm={4}>
+                                <h1>Your Info</h1>
+                                <p id="info">{customerInfo.firstName} {customerInfo.lastName} <br/> {customerInfo.street} <br/> {customerInfo.city}, {customerInfo.state} <br/> {customerInfo.zipCode} <br/> {customerInfo.email} <br/> {customerInfo.phoneNumber}</p>
+                                <Link to="/customerInfoForm">
+                                    <Button id="edit-info-button" bsStyle="primary">Edit Info</Button>
+                                </Link>
+                            </Col>
+                            <Col id="pay-col" sm={4}>
+                                <h1>Your Total</h1>
+                                <h2 id="price"><sup>$</sup>{cartTotal.toFixed(2)}</h2>
+                                <h3 id="shipping-cost">with<br/>Free Shipping!</h3>
+                                <PaypalButton
+                                    client={client}
+                                    env={'sandbox'}
+                                    commit={true}
+                                    currency={'USD'}
+                                    total={cartTotal}
+                                    onSuccess={onSuccess}
+                                    shipping={1}
+                                />
+                            </Col>
+                        </Row>
+                    </Grid>
+                </React.Fragment>
             )
         }
         return(
-            <Jumbotron id="empty-cart-jumbotron">
-                <h1>Your cart seems to be empty.</h1>
-                <h3>You should go fill it up!</h3>
-                <Link to="/" >
-                    <Button bsStyle="primary" bsSize="large">Return to Products!</Button>
-                </Link>
-            </Jumbotron>
+            <React.Fragment>
+                <Helmet>
+                    <title>Fill Up That Cart!</title>
+                </Helmet>
+                <Jumbotron id="empty-cart-jumbotron">
+                    <h1>Your cart seems to be empty.</h1>
+                    <h3>You should go fill it up!</h3>
+                    <Link to="/" >
+                        <Button bsStyle="primary" bsSize="large">Return to Products!</Button>
+                    </Link>
+                </Jumbotron>
+            </React.Fragment>
+            
         )
     }
 }

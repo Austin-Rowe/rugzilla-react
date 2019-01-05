@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router,Route } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -152,20 +153,25 @@ store.subscribe(() => persistOrderDataToLocalStorage(store.getState()));
 class App extends Component {
   render() {
     return (
-      <Provider store={store}>
-        <Router>
-          <div>
-            <NavBar />
-            <Route exact path="/" render={(props) => <Home {...props} loadMoreQuantity={3} />} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/product/:key" component={ProductPage} />
-            <Route path="/customerInfoForm" component={CustomerInfoForm} />
-            <Route path="/payment" component={Payment} />
-            <Route path="/confirmation" component={PaymentConfirmation} />
-            <Footer />
-          </div>
-        </Router>
-      </Provider>
+      <React.Fragment>
+        <Helmet>
+          <link rel="icon" href="images/thumbLogo.png" />
+        </Helmet>
+        <Provider store={store}>
+          <Router>
+            <div>
+              <NavBar />
+              <Route exact path="/" render={(props) => <Home {...props} loadMoreQuantity={3} />} />
+              <Route path="/cart" component={Cart} />
+              <Route path="/product/:key" component={ProductPage} />
+              <Route path="/customerInfoForm" component={CustomerInfoForm} />
+              <Route path="/payment" component={Payment} />
+              <Route path="/confirmation" component={PaymentConfirmation} />
+              <Footer />
+            </div>
+          </Router>
+        </Provider>
+      </React.Fragment>
     );
   }
 }

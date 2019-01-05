@@ -3,6 +3,7 @@ import { Grid,Row,Col,Badge,Label,Button,Thumbnail } from 'react-bootstrap';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import { connect } from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 
 import './Product.css';
@@ -95,23 +96,29 @@ class ProductPage extends Component {
 
 
     render(){
+        const { item } = this.state;
         return(
-            <Grid>
-                <Product item={this.state.item} images={this.state.images} dispatch={this.props.dispatch} />
-                {/* RELATED PRODUCTS
-                <Row>
-                    <h1 id="related-products-label">Related Products</h1>
-                    <Col sm={6}  md={3}>
-                        <Thumbnail src="https://placeimg.com/1000/480/any" alt="242x200">
-                            <h3>Thumbnail label</h3>
-                            <p>Description</p>
-                            <p>
-                            <Button bsStyle="primary">Button</Button>
-                            </p>
-                        </Thumbnail>
-                    </Col>
-                </Row> */}
-            </Grid>
+            <React.Fragment>
+                <Helmet>
+                    <title>{item.manufacturer + ' ' + item.collection}</title>
+                </Helmet>
+                <Grid>
+                    <Product item={item} images={this.state.images} dispatch={this.props.dispatch} />
+                    {/* RELATED PRODUCTS
+                    <Row>
+                        <h1 id="related-products-label">Related Products</h1>
+                        <Col sm={6}  md={3}>
+                            <Thumbnail src="https://placeimg.com/1000/480/any" alt="242x200">
+                                <h3>Thumbnail label</h3>
+                                <p>Description</p>
+                                <p>
+                                <Button bsStyle="primary">Button</Button>
+                                </p>
+                            </Thumbnail>
+                        </Col>
+                    </Row> */}
+                </Grid>
+            </React.Fragment>
         )
     }
 }

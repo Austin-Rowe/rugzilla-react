@@ -1,11 +1,10 @@
 import React from 'react';
-import { Navbar,Nav,Badge,Image } from 'react-bootstrap';
+import { Badge,Image } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import './NavBar.css';
-import logoimg from '../images/logo.png';
-import cartimg from '../images/cart.png';
+
 
 
 function NavBar(props){
@@ -13,10 +12,10 @@ function NavBar(props){
     return(
         <div id="navBar">
             <Link to="/">
-                <Image src={logoimg} className="fluid" />
+                <Image src="images/logo.png" className="fluid" />
             </Link>
             <Link to="/cart" id="cart-cluster">
-                <Image src={cartimg} alt="cart" id="cartimg" />
+                <Image src="images/cart.png" alt="cart" id="cartimg" />
                 <Badge>{cartCount}</Badge>
             </Link>
         </div>

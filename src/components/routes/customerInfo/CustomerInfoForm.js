@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button} from 'react-bootstrap';
 import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import { Helmet } from 'react-helmet';
 
 
 import './CustomerInfoForm.css';
@@ -147,26 +148,31 @@ class Checkout extends Component {
             return <Redirect to="/payment" />
         }
         return(
-            <form onSubmit={this.submitForm} id="form">
-                <label className="form-input-group"> <h3>Customer Contact</h3>
-                    <input name="firstName" className={`form-input ${firstNameValid}`} type="text" value={firstName} onChange={this.inputToState} placeholder="First Name" />
-                    <input name="lastName" className={`form-input ${lastNameValid}`} type="text" value={lastName} onChange={this.inputToState} placeholder="Last Name" />
-                    <input name="email" className={`form-input ${emailValid}`} type="text" value={email} onChange={this.inputToState} placeholder="Email" />
-                    <input name="phoneNumber" className={`form-input ${phoneNumberValid}`} type="text" value={phoneNumber} onChange={this.inputToState} placeholder="Phone Number" />
-                </label>
-                <label className="form-input-group"> <h3>Shipping Address</h3>
-                    <input name="street" className={`form-input ${streetValid}`} type="text" value={street} onChange={this.inputToState} placeholder="Street" />
-                    <input name="city" className={`form-input ${cityValid}`} type="text" value={city} onChange={this.inputToState} placeholder="City" />
-                    {/* <input name="state" className="form-input" type="text" value={state} onChange={this.inputToState} placeholder="State" /> */}
-                    <select className={`form-input ${stateValid}`} name="state" id="state-input" value={state} onChange={this.inputToState} >
-                        <option>State</option>
-                        {stateOptions}
-                    </select>
-                    <input name="zipCode" className={`form-input ${zipCodeValid}`} type="text" value={zipCode} onChange={this.inputToState} placeholder="Zip Code" />
-                </label>
-                <Button bsStyle="primary" id="submit-form" onClick={this.submitForm}>Submit</Button>
-                {invalidMessage}
-            </form>
+            <React.Fragment>
+                <Helmet>
+                    <title>Order Information</title>
+                </Helmet>
+                <form onSubmit={this.submitForm} id="form">
+                    <label className="form-input-group"> <h3>Customer Contact</h3>
+                        <input name="firstName" className={`form-input ${firstNameValid}`} type="text" value={firstName} onChange={this.inputToState} placeholder="First Name" />
+                        <input name="lastName" className={`form-input ${lastNameValid}`} type="text" value={lastName} onChange={this.inputToState} placeholder="Last Name" />
+                        <input name="email" className={`form-input ${emailValid}`} type="text" value={email} onChange={this.inputToState} placeholder="Email" />
+                        <input name="phoneNumber" className={`form-input ${phoneNumberValid}`} type="text" value={phoneNumber} onChange={this.inputToState} placeholder="Phone Number" />
+                    </label>
+                    <label className="form-input-group"> <h3>Shipping Address</h3>
+                        <input name="street" className={`form-input ${streetValid}`} type="text" value={street} onChange={this.inputToState} placeholder="Street" />
+                        <input name="city" className={`form-input ${cityValid}`} type="text" value={city} onChange={this.inputToState} placeholder="City" />
+                        {/* <input name="state" className="form-input" type="text" value={state} onChange={this.inputToState} placeholder="State" /> */}
+                        <select className={`form-input ${stateValid}`} name="state" id="state-input" value={state} onChange={this.inputToState} >
+                            <option>State</option>
+                            {stateOptions}
+                        </select>
+                        <input name="zipCode" className={`form-input ${zipCodeValid}`} type="text" value={zipCode} onChange={this.inputToState} placeholder="Zip Code" />
+                    </label>
+                    <Button bsStyle="primary" id="submit-form" onClick={this.submitForm}>Submit</Button>
+                    {invalidMessage}
+                </form>
+            </React.Fragment>
         )
     }
 }

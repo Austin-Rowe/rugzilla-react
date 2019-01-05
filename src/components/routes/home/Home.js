@@ -3,6 +3,7 @@ import { Grid,Row,Col,Thumbnail,Button,Badge,Label,Panel,Checkbox } from 'react-
 import { connect } from 'react-redux';
 import Spinner from '../../stylingComponents/Spinner';
 import './Home.css';
+import { Helmet } from 'react-helmet';
 
 class FilterOption extends Component {
     constructor(props) {
@@ -375,12 +376,17 @@ class Home extends Component {
             )
         }
         return(
-            <Grid fluid>
-                <Row>
-                    <Filter data={this.state.dataForFilter} dispatch={props.dispatch}/>
-                    <Products filteredData={props.filteredData} visibleProducts={props.visibleProducts} dispatch={props.dispatch}/>
-                </Row>
-            </Grid>
+            <React.Fragment>
+                <Helmet>
+                    <title>United Textiles</title>
+                </Helmet>
+                <Grid fluid>
+                    <Row>
+                        <Filter data={this.state.dataForFilter} dispatch={props.dispatch}/>
+                        <Products filteredData={props.filteredData} visibleProducts={props.visibleProducts} dispatch={props.dispatch}/>
+                    </Row>
+                </Grid>
+            </React.Fragment>
         )
     }
 }

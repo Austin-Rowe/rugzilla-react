@@ -3,6 +3,8 @@ import {Jumbotron, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import Spinner from '../../stylingComponents/Spinner';
 import {connect} from 'react-redux';
+import { Helmet } from 'react-helmet';
+
 import './PaymentConfirmation.css';
 
 class PaymentConfirmation extends Component{
@@ -51,19 +53,30 @@ class PaymentConfirmation extends Component{
 
         if(this.state.loading){
             return(
-                <div id="awaiting-confirmation">
-                    <Spinner loadingMessage='Awaiting Confirmation...' />
-                </div>
+                <React.Fragment>
+                    <Helmet>
+                        <title>Waiting...</title>
+                    </Helmet>
+                    <div id="awaiting-confirmation">
+                        <Spinner loadingMessage='Awaiting Confirmation...' />
+                    </div>
+                </React.Fragment>
             )
         }
         return(
-             <Jumbotron id="order-confirmation-jumbotron">
-                <h1>Thanks {this.props.orderData.customerInfo.firstName}, we really appreciate your business!</h1>
-                <h3>Your confirmation # is {this.state.confirmationNumber}</h3>
-                <Link to="/" >
-                    <Button bsStyle="primary" bsSize="large" id="go-home-button">Return to Homepage</Button>
-                </Link>
-            </Jumbotron>
+            <React.Fragment>
+                <Helmet>
+                    <title>Order Confirmed</title>
+                </Helmet>
+                <Jumbotron id="order-confirmation-jumbotron">
+                    <h1>Thanks {this.props.orderData.customerInfo.firstName}, we really appreciate your business!</h1>
+                    <h3>Your confirmation # is {this.state.confirmationNumber}</h3>
+                    <Link to="/" >
+                        <Button bsStyle="primary" bsSize="large" id="go-home-button">Return to Homepage</Button>
+                    </Link>
+                </Jumbotron>
+            </React.Fragment>
+             
         )
     }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image,Grid,Row,Col,Badge,Label,Button,Jumbotron } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 import Or from '../../stylingComponents/Or';
@@ -97,40 +98,50 @@ class Cart extends React.Component {
         
         if(cartItems.length > 0){
             return(
-                <Grid id="cart">
-                    <Row>
-                        <Col sm={6} id="cart-title">
-                            <h1>Your Cart({cartCount} Items)</h1>
-                        </Col>
-                        <Col sm={6} id="total-summary">
-                            <h3>Total: <sup>$</sup>{cartTotal.toFixed(2)}</h3>
-                            <Link to="/customerInfoForm">
-                                <Button bsStyle="primary" style={{
-                                    width: "65%",
-                                    height: "45px"
-                                }}>Checkout</Button>
-                            </Link>
-                            <Or />
-                            <Link to="/">
-                                <Button bsStyle="primary" style={{
-                                    width: "65%",
-                                    height: "45px"
-                                }}>Return to Items</Button>
-                            </Link>
+                <React.Fragment>
+                    <Helmet>
+                        <title>Your Cart ({cartCount === 1 ? `${cartCount.toString()} item`: `${cartCount.toString()} items`})</title>
+                    </Helmet> 
+                    <Grid id="cart">
+                        <Row>
+                            <Col sm={6} id="cart-title">
+                                <h1>Your Cart({cartCount} Items)</h1>
                             </Col>
-                    </Row>
-                    {cartItems}
-                </Grid>
+                            <Col sm={6} id="total-summary">
+                                <h3>Total: <sup>$</sup>{cartTotal.toFixed(2)}</h3>
+                                <Link to="/customerInfoForm">
+                                    <Button bsStyle="primary" style={{
+                                        width: "65%",
+                                        height: "45px"
+                                    }}>Checkout</Button>
+                                </Link>
+                                <Or />
+                                <Link to="/">
+                                    <Button bsStyle="primary" style={{
+                                        width: "65%",
+                                        height: "45px"
+                                    }}>Return to Items</Button>
+                                </Link>
+                                </Col>
+                        </Row>
+                        {cartItems}
+                    </Grid>
+                </React.Fragment>
             );
         }
         return(
-            <Jumbotron id="empty-cart-jumbotron">
-                <h1>There's nothing in your cart. How disappointing!</h1>
-                <h3>Lets see if we can change that!</h3>
-                <Link to="/" >
-                    <Button bsStyle="primary" bsSize="large">Return to Products!</Button>
-                </Link>
-            </Jumbotron>
+            <React.Fragment>
+                <Helmet>
+                    <title>Fill Up That Cart!</title>
+                </Helmet>
+                <Jumbotron id="empty-cart-jumbotron">
+                    <h1>There's nothing in your cart. How disappointing!</h1>
+                    <h3>Lets see if we can change that!</h3>
+                    <Link to="/" >
+                        <Button bsStyle="primary" bsSize="large">Return to Products!</Button>
+                    </Link>
+                </Jumbotron>
+            </React.Fragment>
         );
     }
 }
