@@ -43,7 +43,6 @@ const removeFilterParam = (data, filters, sortByPrice) => {
         return values;
     });
     const filteredData = data.filter(item => {
-        console.log(insertIfInFor(item, filtersArray));
         if(filtersArray.length > 0){
             if(insertIfInFor(item, filtersArray).reduce(reducer) === 0){
                 return true;

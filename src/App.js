@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {BrowserRouter as Router,Route } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -15,7 +14,6 @@ import PaymentConfirmation from './components/routes/paymentConfirmation/Payment
 import cartReturner from './redux-functions/cart/cartReturner';
 import cartChangeItemQuantity from './redux-functions/cart/cartChangeItemQuantity';
 import removeFromCart from './redux-functions/cart/removeFromCart';
-import addFilterParam from './redux-functions/product-filter/addFilterParam';
 import removeFilterParam from './redux-functions/product-filter/removeFilterParam';
 import modifyAppliedFilters from './redux-functions/product-filter/modifyAppliedFilters';
 import sortByPrice from './redux-functions/product-sort/sortByPrice';
@@ -109,11 +107,11 @@ const orderData = loadOrderDataFromLocalStorage();
 
 const initialState = {
   cart: persistedCart,
-  productsPerLoad: 4,
+  productsPerLoad: 25,
   data: products,
   appliedFilters: [],
   filteredData: [],
-  visibleProducts: 1,
+  visibleProducts: 25,
   sortByPrice: {
     lowToHigh: false,
     highToLow: false
@@ -126,11 +124,10 @@ function reducer(state = initialState, action){
   switch(action.type){
     case "LOADDATA": return {...state, data: action.data, filteredData: action.data};
     case "UPDATECUSTOMERINFO": return {...state, customerInfo: action.customerInfo};
-    case "VIEWMORE": return {...state, visibleProducts: state.visibleProducts + 1 };
-    case "ADDFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: addFilterParam(state.filteredData, action) };
-    case "REMOVEFILTERPARAM": return {...state, visibleProducts: 1, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: removeFilterParam(state.data, state.appliedFilters, state.sortByPrice) };
-    case "SORTBYPRICE": return {...state, visibleProducts: 1, filteredData: sortByPrice(state.filteredData, action), sortByPrice: modifyPriceSort(state.sortByPrice, action) };
-    case "CLEARFILTERS": return {...state, visibleProducts: 1, appliedFilters: [], filteredData: state.data};
+    case "VIEWMORE": return {...state, visibleProducts: state.visibleProducts + 25 };
+    case "EDITFILTERPARAMS": return {...state, visibleProducts: 25, appliedFilters: modifyAppliedFilters(state.appliedFilters, action), filteredData: removeFilterParam(state.data, state.appliedFilters, state.sortByPrice) };
+    case "SORTBYPRICE": return {...state, visibleProducts: 25, filteredData: sortByPrice(state.filteredData, action), sortByPrice: modifyPriceSort(state.sortByPrice, action) };
+    case "CLEARFILTERS": return {...state, visibleProducts: 25, appliedFilters: [], filteredData: state.data};
     case "INCREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };
     case "DECREMENT": return { ...state, cart: cartChangeItemQuantity(state.cart, action) };
     case "REMOVEFROMCART": return {...state, cart: removeFromCart(state.cart, action) };
@@ -153,25 +150,20 @@ store.subscribe(() => persistOrderDataToLocalStorage(store.getState()));
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-        <Helmet>
-          <link rel="icon" href="images/thumbLogo.png" />
-        </Helmet>
-        <Provider store={store}>
-          <Router>
-            <div>
-              <NavBar />
-              <Route exact path="/" render={(props) => <Home {...props} loadMoreQuantity={3} />} />
-              <Route path="/cart" component={Cart} />
-              <Route path="/product/:key" component={ProductPage} />
-              <Route path="/customerInfoForm" component={CustomerInfoForm} />
-              <Route path="/payment" component={Payment} />
-              <Route path="/confirmation" component={PaymentConfirmation} />
-              <Footer />
-            </div>
-          </Router>
-        </Provider>
-      </React.Fragment>
+      <Provider store={store}>
+        <Router>
+          <div>
+            <NavBar />
+            <Route exact path="/" render={(props) => <Home {...props} loadMoreQuantity={3} />} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/product/:key/" component={ProductPage} />
+            <Route path="/customerInfoForm" component={CustomerInfoForm} />
+            <Route path="/payment" component={Payment} />
+            <Route path="/confirmation" component={PaymentConfirmation} />
+            <Footer />
+          </div>
+        </Router>
+      </Provider>
     );
   }
 }

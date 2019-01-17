@@ -78,7 +78,7 @@ class Payment extends Component{
     }
 
     render(){
-        const cartItems = this.props.cart.map(cartItem => <CartItem cartItem={cartItem} dispatch={this.props.dispatch}/>);
+        const cartItems = this.props.cart.map(cartItem => <CartItem cartItem={cartItem} dispatch={this.props.dispatch} key={cartItem.item.key}/>);
         const {customerInfo} = this.props;
         const cartCount = this.props.cart.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0)
         const reducer = (accumulator, current) => accumulator + (current.item.price * current.quantity);

@@ -79,10 +79,7 @@ class CartItem extends Component {
 }
 
 class Cart extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+  
     render() {
         const {
             props,
@@ -93,7 +90,7 @@ class Cart extends React.Component {
         const cartDollarTotal = props.cart.reduce(reducer, 0);
         const cartTotal = cartDollarTotal + (cartCount*95/100);
         const cartItems = props.cart.map( cartItem =>
-            <CartItem cartItem={cartItem} dispatch={props.dispatch} key={cartItem.key} />
+            <CartItem cartItem={cartItem} dispatch={props.dispatch} key={cartItem.item.key} />
         )
         
         if(cartItems.length > 0){

@@ -21,14 +21,14 @@ class FilterOption extends Component {
         const productFilterModifier = (filterType, param, isSelected)=> {
             if(isSelected){
                 return {
-                    type: "REMOVEFILTERPARAM",
+                    type: "EDITFILTERPARAMS",
                     filterType: filterType,
                     param: param,
                     isSelected: isSelected
                 }
             } else {
                 return {
-                    type: "REMOVEFILTERPARAM",
+                    type: "EDITFILTERPARAMS",
                     filterType: filterType,
                     param: param,
                     isSelected: isSelected
@@ -61,7 +61,7 @@ function FilterOptions(props){
     const uniqueOptionsObj = new Set(notUnique);
     const uniqueOptionsArray = [...uniqueOptionsObj]
     const options = uniqueOptionsArray.map(option =>
-        <FilterOption option={option} dispatch={props.dispatch} filterType={type} />   
+        <FilterOption option={option} dispatch={props.dispatch} filterType={type} key={option} />   
     )
     return(
         <div className="filter-group">
@@ -116,7 +116,7 @@ class Filter extends Component {
                 filterType: 'construction'
             }
         ];
-        const filterOptions = filterOptionsArray.map(item => <FilterOptions title={item.title} filterType={item.filterType} data={this.props.data} dispatch={this.props.dispatch} />);
+        const filterOptions = filterOptionsArray.map(item => <FilterOptions title={item.title} filterType={item.filterType} data={this.props.data} dispatch={this.props.dispatch} key={item.filterType} />);
         this.setState({filterOptions: filterOptions});
     }
 
@@ -201,9 +201,9 @@ class Filter extends Component {
     render() {
         return(
             <Col sm={3} md={2} xl={1} id="filter">
-                <Panel expanded={this.state.filterExp} bsStyle="primary" >
-                    <Panel.Heading onClick={this.toggleFilterExp}>
-                    <Panel.Title componentClass="h3" toggle >Filter & Sort</Panel.Title>
+                <Panel expanded={this.state.filterExp} bsStyle="primary" onToggle={this.toggleFilterExp}>
+                    <Panel.Heading>
+                    <Panel.Title componentClass="h3" toggle id="filter-title"> {!this.state.filterExp? "Expand ": "Minimize "}Filter & Sort</Panel.Title>
                     
                     </Panel.Heading>
                     <Panel.Body collapsible>
@@ -283,9 +283,9 @@ class Product extends Component {
                         <h4>{obj.manufacturer} {obj.collection} {obj.sizeCategory}</h4>
                         <h3><sup>$</sup>{obj.price}<sup>95</sup></h3>
                         <ul>
-                            <li>{obj.material}</li>
+                            <li>{obj.madeOf}</li>
                             <li>{obj.sizeTrue}</li>
-                            <li>{obj.construction}</li>
+                            <li>{obj.trueConstruction}</li>
                         </ul>
                         <div>
                             <div id="increment-button-group">
@@ -306,10 +306,6 @@ class Product extends Component {
 class Products extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            visibleProducts: 1 //This will need to be changed to a more appropriate number in the production build
-        }
-
         this.loadMoreProducts = this.loadMoreProducts.bind(this);
     }
 
@@ -354,7 +350,7 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        fetch('http://127.0.1.1:8000/rugs')
+        fetch('http://18.188.129.119:8000/rugs')
         .then(res => {
             return res.json()
         })
@@ -378,7 +374,7 @@ class Home extends Component {
         return(
             <React.Fragment>
                 <Helmet>
-                    <title>United Textiles</title>
+                    <title>RUGZILLA</title>
                 </Helmet>
                 <Grid fluid>
                     <Row>

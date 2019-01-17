@@ -23,16 +23,13 @@ class PaymentConfirmation extends Component{
             const orderItems = orderData.purchaseCart.map(item => ({quantity: item.quantity, UPC: item.item.key}));
             const paypalInfo = orderData.payPalRes;
             const customerInfo = orderData.customerInfo;
-            console.log('orderItems', orderItems);
-            console.log('paypalInfo', paypalInfo);
-            console.log('customerInfo', customerInfo);
             const orderObj = {
                 orderItems,
                 paypalInfo,
                 customerInfo
             };
 
-            fetch('http://127.0.1.1:8000/confirm-payment',{
+            fetch('http://18.188.129.119:8000/confirm-payment',{
                 method: 'post', 
                 headers:{
                     'Content-Type': 'application/json'

@@ -42,6 +42,10 @@ a {
     display: inline;
 }
 
+#filter-title {
+    text-align: center;
+}
+
 @media (min-width: 1400px) and (max-width:1600px){
     #filter {
         max-width: 12vw;
