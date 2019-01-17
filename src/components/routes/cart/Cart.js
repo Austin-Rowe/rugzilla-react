@@ -59,7 +59,7 @@ class CartItem extends Component {
         return (
             <Row className="cartitem">
                 <Col sm={6} className="cart-image-col">
-                    <Image src={item.images[0]} alt="Product" className="cart-image" />
+                    <Image src={'https://s3.us-east-2.amazonaws.com/rugzilla/copiedImages' + item.images[0]} alt="Product" className="cart-image" />
                 </Col>
                 <Col sm={6} className="cart-item-text">
                     <h3>{item.manufacturer} {item.collection} {item.sizeCategory}</h3>
@@ -79,10 +79,7 @@ class CartItem extends Component {
 }
 
 class Cart extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
+  
     render() {
         const {
             props,
@@ -93,7 +90,7 @@ class Cart extends React.Component {
         const cartDollarTotal = props.cart.reduce(reducer, 0);
         const cartTotal = cartDollarTotal + (cartCount*95/100);
         const cartItems = props.cart.map( cartItem =>
-            <CartItem cartItem={cartItem} dispatch={props.dispatch} key={cartItem.key} />
+            <CartItem cartItem={cartItem} dispatch={props.dispatch} key={cartItem.item.key} />
         )
         
         if(cartItems.length > 0){

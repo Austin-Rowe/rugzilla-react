@@ -51,7 +51,7 @@ const CartItem = (props) => {
     return(
         <Row className="cart-col-item">
             <Col xs={3} sm={5}>
-                <img className="cart-item-img" src={item.images[0]} alt={item.collection} />
+                <img className="cart-item-img" src={'https://s3.us-east-2.amazonaws.com/rugzilla/copiedImages' + item.images[0]} alt={item.collection} />
             </Col>
             <Col xs={9} sm={7}>
                 <h4>{item.manufacturer} {item.collection} {item.sizeCategory}</h4>
@@ -78,7 +78,7 @@ class Payment extends Component{
     }
 
     render(){
-        const cartItems = this.props.cart.map(cartItem => <CartItem cartItem={cartItem} dispatch={this.props.dispatch}/>);
+        const cartItems = this.props.cart.map(cartItem => <CartItem cartItem={cartItem} dispatch={this.props.dispatch} key={cartItem.item.key}/>);
         const {customerInfo} = this.props;
         const cartCount = this.props.cart.reduce((accumulator, currentValue) => accumulator + currentValue.quantity, 0)
         const reducer = (accumulator, current) => accumulator + (current.item.price * current.quantity);

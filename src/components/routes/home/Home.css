@@ -42,6 +42,10 @@ a {
     display: inline;
 }
 
+#filter-title {
+    text-align: center;
+}
+
 @media (min-width: 1400px) and (max-width:1600px){
     #filter {
         max-width: 12vw;
@@ -64,5 +68,12 @@ a {
     #increment-button-group {
         display: block;
         margin: 5px 0px 10px 5px;
+    }
+}
+
+@media (max-width: 767px){
+    #filter-body{
+        max-height: 75vh;
+        overflow-y: scroll;
     }
 }

@@ -12,10 +12,10 @@ function NavBar(props){
     return(
         <div id="navBar">
             <Link to="/">
-                <Image src="images/logo.png" className="fluid" />
+                <Image src="/logo.png" className="fluid" />
             </Link>
             <Link to="/cart" id="cart-cluster">
-                <Image src="images/cart.png" alt="cart" id="cartimg" />
+                <Image src="/cart.png" alt="cart" id="cartimg" />
                 <Badge>{cartCount}</Badge>
             </Link>
         </div>

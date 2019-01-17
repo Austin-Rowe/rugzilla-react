@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid,Row,Col,Badge,Label,Button,Thumbnail } from 'react-bootstrap';
+import { Grid,Row,Col,Badge,Label,Button } from 'react-bootstrap';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
 import { connect } from 'react-redux';
@@ -11,11 +11,13 @@ import './Product.css';
 
 
 
+
 class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 1
+            quantity: 1,
+            maxQuantity: false
         }
         this.increment = this.increment.bind(this);
         this.decrement = this.decrement.bind(this);
@@ -23,16 +25,29 @@ class Product extends Component {
     }
 
     increment(){
-        this.setState({
-            quantity: this.state.quantity + 1
-        });
+        if(this.state.quantity < this.props.item.availableQuantity && this.state.quantity === (parseInt(this.props.item.availableQuantity) - 1)){
+            this.setState(state => ({
+                quantity: state.quantity + 1,
+                maxQuantity: true
+            }))
+        } else if(this.state.quantity < this.props.item.availableQuantity){
+            this.setState(state => ({
+                quantity: state.quantity + 1
+            }))
+        }
+        
     }
 
     decrement(){
-        if(this.state.quantity > 1){
-            this.setState({
-                quantity: this.state.quantity - 1
-            });
+        if(this.state.quantity > 1 && this.state.maxQuantity){
+            this.setState( state => ({
+                quantity: state.quantity - 1,
+                maxQuantity: false
+            }));
+        } else if(this.state.quantity > 1){
+            this.setState(state => ({
+                quantity: state.quantity -1
+            }))
         } else {
             return;
         }
@@ -40,14 +55,15 @@ class Product extends Component {
     }
 
     addToCart(){
-        function cartActionCreator(quantity, item){
+        function cartActionCreator(quantity, item, maxQuantity){
             return {
                 type: "ADD_TO_CART",
                 quantity: quantity,
-                item: item
+                item: item,
+                maxQuantity: maxQuantity
             }
         }
-        const cartAction = cartActionCreator(this.state.quantity, this.props.item);
+        const cartAction = cartActionCreator(this.state.quantity, this.props.item, this.state.maxQuantity);
         this.props.dispatch(cartAction);
     }
 
@@ -62,6 +78,7 @@ class Product extends Component {
                 <Col sm={6}>
                     <h1>{manufacturer} {collection} {sizeCategory}</h1> 
                     <div><Label bsStyle="success" className="cart-quantity-button add" onClick={this.increment} >+</Label> <Badge>{this.state.quantity}</Badge> <Label bsStyle="danger" className="cart-quantity-button remove" onClick={this.decrement}>-</Label> <Button bsStyle="primary" onClick={this.addToCart} >Add to Cart</Button></div>
+                    {this.state.maxQuantity ? <p className="max-quantity-indicator">* Max Available Quantity</p> : null}
                     <p className="cart-item-description">{description}</p>
                 </Col>
             </Row>
@@ -82,11 +99,10 @@ class ProductPage extends Component {
 
     componentDidMount(){
         const {data, match} = this.props;
-        console.log(match);
-        const product = data.find(item => item.key == match.params.key);
+        const product = data.find(item => item.key === match.params.key);
         const images = product.images.map(item => ({
-            original: item,
-            thumbnail: item
+            original: 'https://s3.us-east-2.amazonaws.com/rugzilla/copiedImages' + item,
+            thumbnail: 'https://s3.us-east-2.amazonaws.com/rugzilla/copiedImages' + item
         }));
         this.setState({
             item: product,

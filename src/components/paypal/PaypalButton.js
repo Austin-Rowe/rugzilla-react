@@ -17,31 +17,22 @@ class PaypalButton extends Component {
         if (isScriptLoaded && isScriptLoadSucceed) {
             this.setState({ showButton: true });
         }
-        console.log('PaypalButton has mounted!');
     }
 
     componentDidUpdate(prevProps){
-        const {isScriptLoaded, isScriptLoadSucceed} = this.props;
-        console.log(this.props);
-        console.log('this.state.showButton' + this.state.showButton);
-        console.log('this.props.isScriptLoaded' + this.props.isScriptLoaded);
-        console.log('isScriptLoaded' + isScriptLoaded);
+        const { isScriptLoadSucceed} = this.props;
       
         //const isLoadedButWasntLoadedBefore = !this.state.showButton && !this.props.isScriptLoaded && isScriptLoaded;
         if(prevProps.isScriptLoaded === false){
             if (isScriptLoadSucceed) {
                 this.setState({ showButton: true });
-                console.log('Script Load Successful');
             } else if (!isScriptLoadSucceed){
-                console.log('Script Load UnSuccessful');
             } else {
-                console.log('isScriptLoadSucceed isnt doing anythin');
             }
         }
             
         
         
-        console.log('componentDidUpdate has run on PaypalButton!');
     }
 
     render() {
